@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00003042  00000000  00000000  00020035  2**0
+ 12 .debug_info   00003027  00000000  00000000  00020035  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00000e94  00000000  00000000  00023077  2**0
+ 13 .debug_abbrev 00000e94  00000000  00000000  0002305c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000003d8  00000000  00000000  00023f10  2**3
+ 14 .debug_aranges 000003d8  00000000  00000000  00023ef0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000350  00000000  00000000  000242e8  2**3
+ 15 .debug_ranges 00000350  00000000  00000000  000242c8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0001554b  00000000  00000000  00024638  2**0
+ 16 .debug_macro  0001554b  00000000  00000000  00024618  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000463d  00000000  00000000  00039b83  2**0
+ 17 .debug_line   00004642  00000000  00000000  00039b63  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00079826  00000000  00000000  0003e1c0  2**0
+ 18 .debug_str    00079826  00000000  00000000  0003e1a5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000b79e6  2**0
+ 19 .comment      00000053  00000000  00000000  000b79cb  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000d54  00000000  00000000  000b7a3c  2**2
+ 20 .debug_frame  00000d54  00000000  00000000  000b7a20  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -77,213 +77,213 @@ Disassembly of section .text:
  8000148:	08001254 	.word	0x08001254
 
 0800014c <setOnLED>:
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void setOnLED(int id){
+enum ledStatus {RED, YELLOW, GREEN};
+void setOnLED(enum ledStatus id){
  800014c:	b580      	push	{r7, lr}
  800014e:	b082      	sub	sp, #8
  8000150:	af00      	add	r7, sp, #0
- 8000152:	6078      	str	r0, [r7, #4]
+ 8000152:	4603      	mov	r3, r0
+ 8000154:	71fb      	strb	r3, [r7, #7]
 	switch (id){
- 8000154:	687b      	ldr	r3, [r7, #4]
- 8000156:	2b02      	cmp	r3, #2
- 8000158:	d029      	beq.n	80001ae <setOnLED+0x62>
- 800015a:	687b      	ldr	r3, [r7, #4]
+ 8000156:	79fb      	ldrb	r3, [r7, #7]
+ 8000158:	2b02      	cmp	r3, #2
+ 800015a:	d026      	beq.n	80001aa <setOnLED+0x5e>
  800015c:	2b02      	cmp	r3, #2
- 800015e:	dc36      	bgt.n	80001ce <setOnLED+0x82>
- 8000160:	687b      	ldr	r3, [r7, #4]
- 8000162:	2b00      	cmp	r3, #0
- 8000164:	d003      	beq.n	800016e <setOnLED+0x22>
- 8000166:	687b      	ldr	r3, [r7, #4]
- 8000168:	2b01      	cmp	r3, #1
- 800016a:	d010      	beq.n	800018e <setOnLED+0x42>
+ 800015e:	dc34      	bgt.n	80001ca <setOnLED+0x7e>
+ 8000160:	2b00      	cmp	r3, #0
+ 8000162:	d002      	beq.n	800016a <setOnLED+0x1e>
+ 8000164:	2b01      	cmp	r3, #1
+ 8000166:	d010      	beq.n	800018a <setOnLED+0x3e>
 		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
 		HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
 		HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, RESET);
 		break;
 	default:
 		break;
- 800016c:	e02f      	b.n	80001ce <setOnLED+0x82>
+ 8000168:	e02f      	b.n	80001ca <setOnLED+0x7e>
 		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
- 800016e:	2200      	movs	r2, #0
- 8000170:	2120      	movs	r1, #32
- 8000172:	4819      	ldr	r0, [pc, #100]	; (80001d8 <setOnLED+0x8c>)
- 8000174:	f000 fc4e 	bl	8000a14 <HAL_GPIO_WritePin>
+ 800016a:	2200      	movs	r2, #0
+ 800016c:	2120      	movs	r1, #32
+ 800016e:	4819      	ldr	r0, [pc, #100]	; (80001d4 <setOnLED+0x88>)
+ 8000170:	f000 fc50 	bl	8000a14 <HAL_GPIO_WritePin>
 		HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
- 8000178:	2201      	movs	r2, #1
- 800017a:	2140      	movs	r1, #64	; 0x40
- 800017c:	4816      	ldr	r0, [pc, #88]	; (80001d8 <setOnLED+0x8c>)
- 800017e:	f000 fc49 	bl	8000a14 <HAL_GPIO_WritePin>
+ 8000174:	2201      	movs	r2, #1
+ 8000176:	2140      	movs	r1, #64	; 0x40
+ 8000178:	4816      	ldr	r0, [pc, #88]	; (80001d4 <setOnLED+0x88>)
+ 800017a:	f000 fc4b 	bl	8000a14 <HAL_GPIO_WritePin>
 		HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);
- 8000182:	2201      	movs	r2, #1
- 8000184:	2180      	movs	r1, #128	; 0x80
- 8000186:	4814      	ldr	r0, [pc, #80]	; (80001d8 <setOnLED+0x8c>)
- 8000188:	f000 fc44 	bl	8000a14 <HAL_GPIO_WritePin>
+ 800017e:	2201      	movs	r2, #1
+ 8000180:	2180      	movs	r1, #128	; 0x80
+ 8000182:	4814      	ldr	r0, [pc, #80]	; (80001d4 <setOnLED+0x88>)
+ 8000184:	f000 fc46 	bl	8000a14 <HAL_GPIO_WritePin>
 		break;
- 800018c:	e020      	b.n	80001d0 <setOnLED+0x84>
+ 8000188:	e020      	b.n	80001cc <setOnLED+0x80>
 		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
- 800018e:	2201      	movs	r2, #1
- 8000190:	2120      	movs	r1, #32
- 8000192:	4811      	ldr	r0, [pc, #68]	; (80001d8 <setOnLED+0x8c>)
- 8000194:	f000 fc3e 	bl	8000a14 <HAL_GPIO_WritePin>
+ 800018a:	2201      	movs	r2, #1
+ 800018c:	2120      	movs	r1, #32
+ 800018e:	4811      	ldr	r0, [pc, #68]	; (80001d4 <setOnLED+0x88>)
+ 8000190:	f000 fc40 	bl	8000a14 <HAL_GPIO_WritePin>
 		HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, RESET);
- 8000198:	2200      	movs	r2, #0
- 800019a:	2140      	movs	r1, #64	; 0x40
- 800019c:	480e      	ldr	r0, [pc, #56]	; (80001d8 <setOnLED+0x8c>)
- 800019e:	f000 fc39 	bl	8000a14 <HAL_GPIO_WritePin>
+ 8000194:	2200      	movs	r2, #0
+ 8000196:	2140      	movs	r1, #64	; 0x40
+ 8000198:	480e      	ldr	r0, [pc, #56]	; (80001d4 <setOnLED+0x88>)
+ 800019a:	f000 fc3b 	bl	8000a14 <HAL_GPIO_WritePin>
 		HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);
- 80001a2:	2201      	movs	r2, #1
- 80001a4:	2180      	movs	r1, #128	; 0x80
- 80001a6:	480c      	ldr	r0, [pc, #48]	; (80001d8 <setOnLED+0x8c>)
- 80001a8:	f000 fc34 	bl	8000a14 <HAL_GPIO_WritePin>
+ 800019e:	2201      	movs	r2, #1
+ 80001a0:	2180      	movs	r1, #128	; 0x80
+ 80001a2:	480c      	ldr	r0, [pc, #48]	; (80001d4 <setOnLED+0x88>)
+ 80001a4:	f000 fc36 	bl	8000a14 <HAL_GPIO_WritePin>
 		break;
- 80001ac:	e010      	b.n	80001d0 <setOnLED+0x84>
+ 80001a8:	e010      	b.n	80001cc <setOnLED+0x80>
 		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, SET);
- 80001ae:	2201      	movs	r2, #1
- 80001b0:	2120      	movs	r1, #32
- 80001b2:	4809      	ldr	r0, [pc, #36]	; (80001d8 <setOnLED+0x8c>)
- 80001b4:	f000 fc2e 	bl	8000a14 <HAL_GPIO_WritePin>
+ 80001aa:	2201      	movs	r2, #1
+ 80001ac:	2120      	movs	r1, #32
+ 80001ae:	4809      	ldr	r0, [pc, #36]	; (80001d4 <setOnLED+0x88>)
+ 80001b0:	f000 fc30 	bl	8000a14 <HAL_GPIO_WritePin>
 		HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);
- 80001b8:	2201      	movs	r2, #1
- 80001ba:	2140      	movs	r1, #64	; 0x40
- 80001bc:	4806      	ldr	r0, [pc, #24]	; (80001d8 <setOnLED+0x8c>)
- 80001be:	f000 fc29 	bl	8000a14 <HAL_GPIO_WritePin>
+ 80001b4:	2201      	movs	r2, #1
+ 80001b6:	2140      	movs	r1, #64	; 0x40
+ 80001b8:	4806      	ldr	r0, [pc, #24]	; (80001d4 <setOnLED+0x88>)
+ 80001ba:	f000 fc2b 	bl	8000a14 <HAL_GPIO_WritePin>
 		HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, RESET);
- 80001c2:	2200      	movs	r2, #0
- 80001c4:	2180      	movs	r1, #128	; 0x80
- 80001c6:	4804      	ldr	r0, [pc, #16]	; (80001d8 <setOnLED+0x8c>)
- 80001c8:	f000 fc24 	bl	8000a14 <HAL_GPIO_WritePin>
+ 80001be:	2200      	movs	r2, #0
+ 80001c0:	2180      	movs	r1, #128	; 0x80
+ 80001c2:	4804      	ldr	r0, [pc, #16]	; (80001d4 <setOnLED+0x88>)
+ 80001c4:	f000 fc26 	bl	8000a14 <HAL_GPIO_WritePin>
 		break;
- 80001cc:	e000      	b.n	80001d0 <setOnLED+0x84>
+ 80001c8:	e000      	b.n	80001cc <setOnLED+0x80>
 		break;
- 80001ce:	bf00      	nop
+ 80001ca:	bf00      	nop
 	}
 }
- 80001d0:	bf00      	nop
- 80001d2:	3708      	adds	r7, #8
- 80001d4:	46bd      	mov	sp, r7
- 80001d6:	bd80      	pop	{r7, pc}
- 80001d8:	40010800 	.word	0x40010800
+ 80001cc:	bf00      	nop
+ 80001ce:	3708      	adds	r7, #8
+ 80001d0:	46bd      	mov	sp, r7
+ 80001d2:	bd80      	pop	{r7, pc}
+ 80001d4:	40010800 	.word	0x40010800
 
-080001dc <main>:
+080001d8 <main>:
 /**
   * @brief  The application entry point.
   * @retval int
   */
 int main(void)
 {
- 80001dc:	b580      	push	{r7, lr}
- 80001de:	b082      	sub	sp, #8
- 80001e0:	af00      	add	r7, sp, #0
+ 80001d8:	b580      	push	{r7, lr}
+ 80001da:	b082      	sub	sp, #8
+ 80001dc:	af00      	add	r7, sp, #0
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
- 80001e2:	f000 f933 	bl	800044c <HAL_Init>
+ 80001de:	f000 f935 	bl	800044c <HAL_Init>
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
- 80001e6:	f000 f838 	bl	800025a <SystemClock_Config>
+ 80001e2:	f000 f83a 	bl	800025a <SystemClock_Config>
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
- 80001ea:	f000 f871 	bl	80002d0 <MX_GPIO_Init>
+ 80001e6:	f000 f873 	bl	80002d0 <MX_GPIO_Init>
   /* USER CODE BEGIN 2 */
-  int counter = 5;
- 80001ee:	2305      	movs	r3, #5
- 80001f0:	607b      	str	r3, [r7, #4]
-  enum ledStatus {RED, YELLOW, GREEN};
+  int counter = 0;
+ 80001ea:	2300      	movs	r3, #0
+ 80001ec:	607b      	str	r3, [r7, #4]
   enum ledStatus currentState = RED;
- 80001f2:	2300      	movs	r3, #0
- 80001f4:	70fb      	strb	r3, [r7, #3]
-  enum ledStatus nextState = RED;
- 80001f6:	2300      	movs	r3, #0
- 80001f8:	70bb      	strb	r3, [r7, #2]
+ 80001ee:	2300      	movs	r3, #0
+ 80001f0:	70fb      	strb	r3, [r7, #3]
+  enum ledStatus nextState = currentState;
+ 80001f2:	78fb      	ldrb	r3, [r7, #3]
+ 80001f4:	70bb      	strb	r3, [r7, #2]
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
 	  if (counter <= 0){
- 80001fa:	687b      	ldr	r3, [r7, #4]
- 80001fc:	2b00      	cmp	r3, #0
- 80001fe:	dcfc      	bgt.n	80001fa <main+0x1e>
+ 80001f6:	687b      	ldr	r3, [r7, #4]
+ 80001f8:	2b00      	cmp	r3, #0
+ 80001fa:	dc21      	bgt.n	8000240 <main+0x68>
 		  switch (currentState){
- 8000200:	78fb      	ldrb	r3, [r7, #3]
+ 80001fc:	78fb      	ldrb	r3, [r7, #3]
+ 80001fe:	2b02      	cmp	r3, #2
+ 8000200:	d016      	beq.n	8000230 <main+0x58>
  8000202:	2b02      	cmp	r3, #2
- 8000204:	d016      	beq.n	8000234 <main+0x58>
- 8000206:	2b02      	cmp	r3, #2
- 8000208:	dc1c      	bgt.n	8000244 <main+0x68>
- 800020a:	2b00      	cmp	r3, #0
- 800020c:	d002      	beq.n	8000214 <main+0x38>
- 800020e:	2b01      	cmp	r3, #1
- 8000210:	d008      	beq.n	8000224 <main+0x48>
+ 8000204:	dc1e      	bgt.n	8000244 <main+0x6c>
+ 8000206:	2b00      	cmp	r3, #0
+ 8000208:	d002      	beq.n	8000210 <main+0x38>
+ 800020a:	2b01      	cmp	r3, #1
+ 800020c:	d008      	beq.n	8000220 <main+0x48>
 			  nextState = YELLOW;
 			  counter = 2;
 			  setOnLED(YELLOW);
 			  break;
 		  default:
 			  break;
- 8000212:	e017      	b.n	8000244 <main+0x68>
+ 800020e:	e019      	b.n	8000244 <main+0x6c>
 			  nextState = GREEN;
- 8000214:	2302      	movs	r3, #2
- 8000216:	70bb      	strb	r3, [r7, #2]
+ 8000210:	2302      	movs	r3, #2
+ 8000212:	70bb      	strb	r3, [r7, #2]
 			  counter = 3;
- 8000218:	2303      	movs	r3, #3
- 800021a:	607b      	str	r3, [r7, #4]
+ 8000214:	2303      	movs	r3, #3
+ 8000216:	607b      	str	r3, [r7, #4]
 			  setOnLED(GREEN);
- 800021c:	2002      	movs	r0, #2
- 800021e:	f7ff ff95 	bl	800014c <setOnLED>
+ 8000218:	2002      	movs	r0, #2
+ 800021a:	f7ff ff97 	bl	800014c <setOnLED>
 			  break;
- 8000222:	e010      	b.n	8000246 <main+0x6a>
+ 800021e:	e012      	b.n	8000246 <main+0x6e>
 			  nextState = RED;
- 8000224:	2300      	movs	r3, #0
- 8000226:	70bb      	strb	r3, [r7, #2]
+ 8000220:	2300      	movs	r3, #0
+ 8000222:	70bb      	strb	r3, [r7, #2]
 			  counter = 5;
- 8000228:	2305      	movs	r3, #5
- 800022a:	607b      	str	r3, [r7, #4]
+ 8000224:	2305      	movs	r3, #5
+ 8000226:	607b      	str	r3, [r7, #4]
 			  setOnLED(RED);
- 800022c:	2000      	movs	r0, #0
- 800022e:	f7ff ff8d 	bl	800014c <setOnLED>
+ 8000228:	2000      	movs	r0, #0
+ 800022a:	f7ff ff8f 	bl	800014c <setOnLED>
 			  break;
- 8000232:	e008      	b.n	8000246 <main+0x6a>
+ 800022e:	e00a      	b.n	8000246 <main+0x6e>
 			  nextState = YELLOW;
- 8000234:	2301      	movs	r3, #1
- 8000236:	70bb      	strb	r3, [r7, #2]
+ 8000230:	2301      	movs	r3, #1
+ 8000232:	70bb      	strb	r3, [r7, #2]
 			  counter = 2;
- 8000238:	2302      	movs	r3, #2
- 800023a:	607b      	str	r3, [r7, #4]
+ 8000234:	2302      	movs	r3, #2
+ 8000236:	607b      	str	r3, [r7, #4]
 			  setOnLED(YELLOW);
- 800023c:	2001      	movs	r0, #1
- 800023e:	f7ff ff85 	bl	800014c <setOnLED>
+ 8000238:	2001      	movs	r0, #1
+ 800023a:	f7ff ff87 	bl	800014c <setOnLED>
 			  break;
- 8000242:	e000      	b.n	8000246 <main+0x6a>
+ 800023e:	e002      	b.n	8000246 <main+0x6e>
+		  }
+	  }
+ 8000240:	bf00      	nop
+ 8000242:	e000      	b.n	8000246 <main+0x6e>
 			  break;
  8000244:	bf00      	nop
-		  }
-		  currentState = nextState;
+	  currentState = nextState;
  8000246:	78bb      	ldrb	r3, [r7, #2]
  8000248:	70fb      	strb	r3, [r7, #3]
-		  counter--;
+	  counter--;
  800024a:	687b      	ldr	r3, [r7, #4]
  800024c:	3b01      	subs	r3, #1
  800024e:	607b      	str	r3, [r7, #4]
-		  HAL_Delay(1000);
+	  HAL_Delay(1000);
  8000250:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000254:	f000 f95c 	bl	8000510 <HAL_Delay>
 	  if (counter <= 0){
- 8000258:	e7cf      	b.n	80001fa <main+0x1e>
+ 8000258:	e7cd      	b.n	80001f6 <main+0x1e>
 
 0800025a <SystemClock_Config>:
 /**
@@ -405,8 +405,8 @@ static void MX_GPIO_Init(void)
  80002fa:	687b      	ldr	r3, [r7, #4]
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
- 80002fc:	2200      	movs	r2, #0
+  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, SET);
+ 80002fc:	2201      	movs	r2, #1
  80002fe:	21e0      	movs	r1, #224	; 0xe0
  8000300:	480b      	ldr	r0, [pc, #44]	; (8000330 <MX_GPIO_Init+0x60>)
  8000302:	f000 fb87 	bl	8000a14 <HAL_GPIO_WritePin>
@@ -781,7 +781,7 @@ LoopFillZerobss:
  800042a:	f000 fee7 	bl	80011fc <__libc_init_array>
 /* Call the application's entry point.*/
   bl main
- 800042e:	f7ff fed5 	bl	80001dc <main>
+ 800042e:	f7ff fed3 	bl	80001d8 <main>
   bx lr
  8000432:	4770      	bx	lr
   ldr r0, =_sdata
