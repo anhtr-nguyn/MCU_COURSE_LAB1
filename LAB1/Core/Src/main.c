@@ -54,13 +54,51 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+// the machine includes 4 state
 enum trafficLightState{
 	RED1_GREEN2,
 	RED1_YELLOW2,
 	GREEN1_RED2,
 	YELLOW1_RED2
 };
-
+void setLED(enum trafficLightState state){
+	switch(state){
+	case RED1_GREEN2:
+		HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, RESET);
+		HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, SET);
+		HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, SET);
+		HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, SET);
+		HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, SET);
+		HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, RESET);
+		break;
+	case RED1_YELLOW2:
+		  HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, RESET);
+		  HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, SET);
+		  HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, SET);
+		  HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, SET);
+		  HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, RESET);
+		  HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, SET);
+		  break;
+	case GREEN1_RED2:
+		  HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, SET);
+		  HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, SET);
+		  HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, RESET);
+		  HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, RESET);
+		  HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, SET);
+		  HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, SET);
+		  break;
+	case YELLOW1_RED2:
+		  HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, SET);
+		  HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, RESET);
+		  HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, SET);
+		  HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, RESET);
+		  HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, SET);
+		  HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, SET);
+		  break;
+	default:
+		break;
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -92,10 +130,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
-	enum trafficLightState currentState = RED1_GREEN2;
-	enum trafficLightState nextState = currentState;
-	int counter = 0;
+  // init state is RED1_GREEN2
+  enum trafficLightState currentState = RED1_GREEN2;
+  enum trafficLightState nextState = currentState;
+  int counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -107,48 +145,25 @@ int main(void)
 		  case RED1_GREEN2:
 				  nextState = RED1_YELLOW2;
 				  counter = 2;
-	 			  HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, RESET);
-	 			  HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, SET);
-	 			  HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, SET);
-	 			  HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, SET);
-	 			  HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, RESET);
-	 			  HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, SET);
 				  break;
 			  case RED1_YELLOW2:
 				  nextState = GREEN1_RED2;
 				  counter = 3;
-	 			  HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, SET);
-	 			  HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, SET);
-	 			  HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, RESET);
-	 			  HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, RESET);
-	 			  HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, SET);
-	 			  HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, SET);
 				  break;
 			  case GREEN1_RED2:
 				  nextState = YELLOW1_RED2;
 				  counter = 2;
-	 			  HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, SET);
-	 			  HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, RESET);
-	 			  HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, SET);
-	 			  HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, RESET);
-	 			  HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, SET);
-	 			  HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, SET);
 	 			  break;
 			  case YELLOW1_RED2:
 				  nextState = RED1_GREEN2;
 				  counter = 3;
-	 			  HAL_GPIO_WritePin(RED1_GPIO_Port, RED1_Pin, RESET);
-	 			  HAL_GPIO_WritePin(YELLOW1_GPIO_Port, YELLOW1_Pin, SET);
-	 			  HAL_GPIO_WritePin(GREEN1_GPIO_Port, GREEN1_Pin, SET);
-	 			  HAL_GPIO_WritePin(RED2_GPIO_Port, RED2_Pin, SET);
-	 			  HAL_GPIO_WritePin(YELLOW2_GPIO_Port, YELLOW2_Pin, SET);
-	 			  HAL_GPIO_WritePin(GREEN2_GPIO_Port, GREEN2_Pin, RESET);
 	 			  break;
 			  default:
 				  break;
 		  }
 	  }
 	  currentState = nextState;
+	  setLED(currentState);
 	  counter = counter - 1;
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
