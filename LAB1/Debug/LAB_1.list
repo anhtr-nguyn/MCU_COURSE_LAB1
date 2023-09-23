@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0001553f  00000000  00000000  00024598  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   000045eb  00000000  00000000  00039ad7  2**0
+ 17 .debug_line   000045e9  00000000  00000000  00039ad7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000797bc  00000000  00000000  0003e0c2  2**0
+ 18 .debug_str    000797bc  00000000  00000000  0003e0c0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000b787e  2**0
+ 19 .comment      00000053  00000000  00000000  000b787c  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000d30  00000000  00000000  000b78d4  2**2
+ 20 .debug_frame  00000d30  00000000  00000000  000b78d0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -108,9 +108,13 @@ int main(void)
   MX_GPIO_Init();
  800015a:	f000 f85f 	bl	800021c <MX_GPIO_Init>
   /* USER CODE BEGIN 2 */
+  // Init counter variable for counting
   int counter = 2;
  800015e:	2302      	movs	r3, #2
  8000160:	607b      	str	r3, [r7, #4]
+  //Set init state:
+  // - LED RED: ON
+  // - LED YELLOW: OFF
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
  8000162:	2200      	movs	r2, #0
  8000164:	2120      	movs	r1, #32
@@ -125,29 +129,29 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+	  //For each 2 second, toggle both led and reset counter = 2
 	  if (counter <= 0)
  8000176:	687b      	ldr	r3, [r7, #4]
  8000178:	2b00      	cmp	r3, #0
  800017a:	dc09      	bgt.n	8000190 <main+0x44>
-	  {
-		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+	 	  {
+	 		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
  800017c:	2120      	movs	r1, #32
  800017e:	4808      	ldr	r0, [pc, #32]	; (80001a0 <main+0x54>)
  8000180:	f000 fc06 	bl	8000990 <HAL_GPIO_TogglePin>
-		  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+	 		  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
  8000184:	2140      	movs	r1, #64	; 0x40
  8000186:	4806      	ldr	r0, [pc, #24]	; (80001a0 <main+0x54>)
  8000188:	f000 fc02 	bl	8000990 <HAL_GPIO_TogglePin>
-		  counter = 2;
+	 		  counter = 2;
  800018c:	2302      	movs	r3, #2
  800018e:	607b      	str	r3, [r7, #4]
-	  }
-	  counter = counter - 1;
+	 	  }
+	 	  counter = counter - 1;
  8000190:	687b      	ldr	r3, [r7, #4]
  8000192:	3b01      	subs	r3, #1
  8000194:	607b      	str	r3, [r7, #4]
-	  HAL_Delay(1000);
+	 	  HAL_Delay(1000);
  8000196:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  800019a:	f000 f95f 	bl	800045c <HAL_Delay>
 	  if (counter <= 0)

@@ -2313,16 +2313,16 @@ LOAD d:/software/stm32cubeide_1.7.0/stm32cubeide/plugins/com.st.stm32cube.ide.mc
  .debug_macro   0x00000000000151be      0x1ed ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
  .debug_macro   0x00000000000153ab      0x194 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
 
-.debug_line     0x0000000000000000     0x45eb
- .debug_line    0x0000000000000000      0x6ed ./Core/Src/main.o
- .debug_line    0x00000000000006ed      0x64d ./Core/Src/stm32f1xx_hal_msp.o
- .debug_line    0x0000000000000d3a      0x70e ./Core/Src/stm32f1xx_it.o
- .debug_line    0x0000000000001448      0x6ca ./Core/Src/system_stm32f1xx.o
- .debug_line    0x0000000000001b12       0x86 ./Core/Startup/startup_stm32f103c6ux.o
- .debug_line    0x0000000000001b98      0x8f7 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
- .debug_line    0x000000000000248f      0xadf ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
- .debug_line    0x0000000000002f6e      0x97a ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
- .debug_line    0x00000000000038e8      0xd03 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
+.debug_line     0x0000000000000000     0x45e9
+ .debug_line    0x0000000000000000      0x6eb ./Core/Src/main.o
+ .debug_line    0x00000000000006eb      0x64d ./Core/Src/stm32f1xx_hal_msp.o
+ .debug_line    0x0000000000000d38      0x70e ./Core/Src/stm32f1xx_it.o
+ .debug_line    0x0000000000001446      0x6ca ./Core/Src/system_stm32f1xx.o
+ .debug_line    0x0000000000001b10       0x86 ./Core/Startup/startup_stm32f103c6ux.o
+ .debug_line    0x0000000000001b96      0x8f7 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o
+ .debug_line    0x000000000000248d      0xadf ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.o
+ .debug_line    0x0000000000002f6c      0x97a ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.o
+ .debug_line    0x00000000000038e6      0xd03 ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.o
 
 .debug_str      0x0000000000000000    0x797bc
  .debug_str     0x0000000000000000    0x7887c ./Core/Src/main.o
