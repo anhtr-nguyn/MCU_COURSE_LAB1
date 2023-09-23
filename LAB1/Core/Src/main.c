@@ -355,7 +355,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  int counter = 0;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -368,16 +367,41 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  clearAllClock();
+  int second = 0;
+  int minute = 58;
+  int hour = 3;
+  setNumberOnClock(second /5);
+  setNumberOnClock(minute /5);
+  setNumberOnClock(hour);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //test for ex9 function clearNumberOnClock
-	  if (counter >= 12) counter = 0;
-	  clearNumberOnClock(counter++);
-	  HAL_Delay(1000);
+	  // TODO ex10
+	  if (second >= 60){
+		  second = 0;
+		  minute++;
+		  if ((minute -1) /5 != (minute /5)) clearNumberOnClock((minute - 1)/5);
+		  setNumberOnClock(minute /5);
+	  }
+	  if (minute >= 60){
+		  hour++;
+		  minute = 0;
+		  if (hour != 12) clearNumberOnClock(hour - 1);
+		  setNumberOnClock(hour);
+
+	  }
+	  if (hour >= 12)
+	  {
+		  hour = 0;
+	  }
+	  second++;
+	  if (second /5 != (second-1)/5 && (second-1)/5 != minute/5 && (second -1)/5 != hour) clearNumberOnClock(second/5 -1);
+	  setNumberOnClock(second/5);
+	  HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
