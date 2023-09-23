@@ -116,31 +116,33 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
 	  if (counter <= 0){
-		  switch (currentState){
-		  case RED:
-			  nextState = GREEN;
-			  counter = 3;
-			  setOnLED(GREEN);
-			  break;
-		  case YELLOW:
-			  nextState = RED;
-			  counter = 5;
-			  setOnLED(RED);
-			  break;
-		  case GREEN:
-			  nextState = YELLOW;
-			  counter = 2;
-			  setOnLED(YELLOW);
-			  break;
-		  default:
-			  break;
-		  }
+	  switch (currentState){
+	  case RED:
+		  nextState = GREEN;
+		  counter = 3;
+		  setOnLED(GREEN);
+		  break;
+	  case YELLOW:
+		  nextState = RED;
+		  counter = 5;
+		  setOnLED(RED);
+		  break;
+	  case GREEN:
+		  nextState = YELLOW;
+		  counter = 2;
+		  setOnLED(YELLOW);
+		  break;
+	  default:
+		  break;
 	  }
+  }
 	  currentState = nextState;
 	  counter--;
 	  HAL_Delay(1000);
+    /* USER CODE END WHILE */
+
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
