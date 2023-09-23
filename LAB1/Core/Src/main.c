@@ -54,8 +54,10 @@ static void MX_GPIO_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+// led status consist of 3 state
 enum ledStatus {RED, YELLOW, GREEN};
 void setOnLED(enum ledStatus id){
+	// set the suitable led on, turn off other leds
 	switch (id){
 	case RED:
 		HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);
@@ -107,7 +109,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  // init counter variable for counting
   int counter = 0;
+  //init state is RED
   enum ledStatus currentState = RED;
   enum ledStatus nextState = currentState;
   /* USER CODE END 2 */

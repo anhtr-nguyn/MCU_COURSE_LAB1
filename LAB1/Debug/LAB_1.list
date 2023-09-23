@@ -77,10 +77,10 @@ Disassembly of section .text:
  8000148:	08001254 	.word	0x08001254
 
 0800014c <setOnLED>:
-/* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+// led status consist of 3 state
 enum ledStatus {RED, YELLOW, GREEN};
 void setOnLED(enum ledStatus id){
  800014c:	b580      	push	{r7, lr}
@@ -88,6 +88,7 @@ void setOnLED(enum ledStatus id){
  8000150:	af00      	add	r7, sp, #0
  8000152:	4603      	mov	r3, r0
  8000154:	71fb      	strb	r3, [r7, #7]
+	// set the suitable led on, turn off other leds
 	switch (id){
  8000156:	79fb      	ldrb	r3, [r7, #7]
  8000158:	2b02      	cmp	r3, #2
@@ -198,9 +199,11 @@ int main(void)
   MX_GPIO_Init();
  80001e6:	f000 f873 	bl	80002d0 <MX_GPIO_Init>
   /* USER CODE BEGIN 2 */
+  // init counter variable for counting
   int counter = 0;
  80001ea:	2300      	movs	r3, #0
  80001ec:	607b      	str	r3, [r7, #4]
+  //init state is RED
   enum ledStatus currentState = RED;
  80001ee:	2300      	movs	r3, #0
  80001f0:	70fb      	strb	r3, [r7, #3]
