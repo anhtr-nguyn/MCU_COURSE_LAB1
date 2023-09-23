@@ -247,9 +247,9 @@ void clearAllClock(){
 	HAL_GPIO_WritePin(LED_11_GPIO_Port, LED_11_Pin, SET);
 	HAL_GPIO_WritePin(LED_12_GPIO_Port, LED_12_Pin, SET);
 }
-/* USER CODE END 0 */
 
 void setNumberOnClock(int num){
+	// For ex8
 	switch (num){
 	case 1:
 		HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, RESET);
@@ -291,6 +291,11 @@ void setNumberOnClock(int num){
 		break;
 	}
 }
+
+
+/* USER CODE END 0 */
+
+
 /**
   * @brief  The application entry point.
   * @retval int
