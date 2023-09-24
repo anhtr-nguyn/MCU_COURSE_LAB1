@@ -401,7 +401,7 @@ int main(void)
 	  second++;
 	  if (second /5 != (second-1)/5 && (second-1)/5 != minute/5 && (second -1)/5 != hour) clearNumberOnClock(second/5 -1);
 	  setNumberOnClock(second/5);
-	  HAL_Delay(100);
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
